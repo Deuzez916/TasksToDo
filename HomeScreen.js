@@ -104,8 +104,9 @@ export default function HomeScreen({ navigation, route}) {
 
     return (
         <View style={styles.container}>
-            <FlatList
+            <FlatList style={{width: '90%'}}
                 data={toDoItems}
+                horizontal={false}
                 renderItem={({ item, index }) => (
                     <TouchableOpacity
                         style={{ margin: 15}}

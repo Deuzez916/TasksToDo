@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import {
-    Button, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View, 
+    Button, FlatList, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, 
 } from "react-native";
 import RNCheckboxCard from "react-native-checkbox-card";
 import { AntDesign } from "@expo/vector-icons";
@@ -39,7 +39,6 @@ export default function Todorow(props, route) {
 const rowstyles = StyleSheet.create({
     todorow: {
         flex: 1,
-        width: '90%',
         backgroundColor: '#ffd0a8',
         alignItems: 'center',
         justifyContent: 'space-between',
