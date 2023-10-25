@@ -18,6 +18,7 @@ export default function HomeScreen({ navigation, route}) {
 
     const [addToDoItems, setAddToDoItems] = useState("");
 
+    
     const [toDoItems, setToDoItems] = useState([
         {
             Task: "Go Shopping",
@@ -46,9 +47,11 @@ export default function HomeScreen({ navigation, route}) {
         }
 
         if (route.params?.newTask) {
-            const newTask = route.params.newTask;
+            const newToDo = route.params.newTask;
 
-            setToDoItems([...toDoItems, newTask]);
+            const newTaskList = [...toDoItems].concat(newToDo)
+
+            setToDoItems(newTaskList);
             setAddToDoItems("");
         }
 
@@ -104,6 +107,9 @@ export default function HomeScreen({ navigation, route}) {
 
     return (
         <View style={styles.container}>
+            {toDoItems.length === 0 ? (
+                <Text style={{fontSize: 20, color: '#fff', fontWeight: 'bold', textAlign: 'center', width: '60%', marginTop: '20%'}}>You Have No More Tasks, Create A New Task On The Plus Icon</Text>
+            ) : (
             <FlatList style={{width: '90%'}}
                 data={toDoItems}
                 horizontal={false}
@@ -131,6 +137,7 @@ export default function HomeScreen({ navigation, route}) {
                     </TouchableOpacity>
                 )}
             />
+            )}
             <StatusBar style="auto" />
         </View>
     );

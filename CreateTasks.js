@@ -28,7 +28,6 @@ export default function CreateTasks({ navigation, route }) {
     };
 
     return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
             <View style={styles.card}>
                 <View style={styles.inputContainer}>
@@ -37,17 +36,6 @@ export default function CreateTasks({ navigation, route }) {
                         placeholder="enter task name"
                         value={todoTitle}
                         onChangeText={setTodoTitle}
-                    />
-                </View>
-
-                <View style={styles.inputContainer}>
-                  
-                    <TextInput
-                        style={styles.NotesInput}
-                        placeholder="Notes"
-                        multiline={true}
-                        value={todoNotes}
-                        onChangeText={setTodoNotes}
                     />
                 </View>
 
@@ -68,7 +56,6 @@ export default function CreateTasks({ navigation, route }) {
                 </View>
             </View>
         </View>
-        </TouchableWithoutFeedback>
     );
 }
 
@@ -190,5 +177,16 @@ const styles = StyleSheet.create({
               }}
             />
           </View>
+
+          <View style={styles.inputContainer}>
+          
+                    <TextInput
+                        style={styles.NotesInput}
+                        placeholder="Notes"
+                        multiline={true}
+                        value={todoNotes}
+                        onChangeText={setTodoNotes}
+                    />
+                </View>
   */
   

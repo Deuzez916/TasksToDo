@@ -24,11 +24,25 @@ export default function TaskPage({ navigation, route, props }) {
     const [dateMode, setDateMode] = useState("date");
     const [timeMode, setTimeMode] = useState("time");
 
+    const [errorMessage, setErrorMessage] = useState("");
+
     const deleteTask = () => {
         const rowNumber = route.params.rowNumber;
         route.params.toDoDelete(rowNumber);
         navigation.navigate("HomeScreen");
     };
+
+    function saveTodo() {
+      if (taskTitle == "") {
+        setErrorMessage("Can't be Empty");
+      }else {
+      navigation.navigate({
+        name: "HomeScreen",
+        params: {taskName: taskTitle, rowNumber: route.params.rowNumber},
+        merge: true
+      });
+      }
+    }
 
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -40,10 +54,6 @@ export default function TaskPage({ navigation, route, props }) {
                         value={taskTitle}
                         onChangeText={setTaskTitle}
                     />
-                </View>
-
-                <View style={styles.inputContainer}>
-                    <TextInput style={styles.NotesInput} placeholder="Notes" multiline={true} value={todoNotes} onChangeText={setTodoNotes}/>
                 </View>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: '5%'}}>
@@ -69,14 +79,7 @@ export default function TaskPage({ navigation, route, props }) {
                             color='#01606a'
                             onPress={() => {
                                 Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-                                navigation.navigate({
-                                    name: "HomeScreen",
-                                    params: {
-                                        taskName: taskTitle,
-                                        rowNumber: route.params.rowNumber,
-                                    },
-                                    merge: true,
-                                });
+                                saveTodo();
                             }}
                         />
                         <Text style={{ textAlign: 'center', fontWeight: 'bold'}}>
@@ -205,4 +208,8 @@ const styles = StyleSheet.create({
                 }}
               />
             </View>
+
+            <View style={styles.inputContainer}>
+                    <TextInput style={styles.NotesInput} placeholder="Notes" multiline={true} value={todoNotes} onChangeText={setTodoNotes}/>
+                </View>
             */
