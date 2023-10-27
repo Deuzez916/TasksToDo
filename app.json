@@ -17,7 +17,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.deuzez916.TasksToDo",
-      "buildNumber": "6"
+      "buildNumber": "7"
     },
     "android": {
       "adaptiveIcon": {
