@@ -40,35 +40,35 @@ export default function HomeScreen({ navigation, route }) {
 
   useEffect(() => {
 
-    if (route.params?.renameTask) {
-      console.log("DO rename");
-        const renameTask = route.params.renameTask;
-        const rowNumber = route.params.rowNumber;
-
-        const updatedTask = [...toDoItems];
-
-        updatedTask[rowNumber] = renameTask
-
-      setToDoItems(updatedTask);
-    }
-
-    if (route.params?.deleteRow) {
-      console.log("Lets Delete");
-      console.log(route.params.deleteRow);
-
-      setAddToDoItems("");
-    }
-
-    if (route.params?.newTask) {
-        console.log("DO create");
-      const newToDo = route.params.newTask;
-
-      const newTaskList = [...toDoItems].concat(newToDo);
-
-      setToDoItems(newTaskList);
-      setAddToDoItems("");
-    }
-
+      
+      if (route.params?.deleteRow) {
+          console.log("Lets Delete");
+          console.log(route.params.deleteRow);
+          
+          setAddToDoItems("");
+        }
+        
+        if (route.params?.newTask) {
+            console.log("DO create");
+            const newToDo = route.params.newTask;
+            
+            const newTaskList = [...toDoItems].concat(newToDo);
+            
+            setToDoItems(newTaskList);
+            setAddToDoItems("");
+        }
+        
+        if (route.params?.renameTask) {
+          console.log("DO rename");
+            const renameTask = route.params.renameTask;
+            const rowNumber = route.params.rowNumber;
+    
+            const updatedTask = [...toDoItems];
+    
+            updatedTask[rowNumber] = renameTask
+    
+          setToDoItems(updatedTask);
+        }
     /*
         saveTasks([...toDoItems]);
         loadTasks();
@@ -77,7 +77,6 @@ export default function HomeScreen({ navigation, route }) {
     route.params?.renameTask,
     route.params?.deleteRow,
     route.params?.newTask,
-    route.params?.deadline,
   ]);
 
   function toDoChangeDone(rowNumber) {

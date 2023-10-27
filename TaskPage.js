@@ -41,14 +41,13 @@ export default function TaskPage({ navigation, route, props }) {
       });
       */
 
-      const newTask = {
+      const renamedTask = {
         Task: taskTitle,
-        Deadline: "",
         Notes: todoNotes,
       };
 
       navigation.navigate({name: "HomeScreen", params: {
-        renameTask: newTask,
+        renameTask: renamedTask,
         rowNumber: route.params.rowNumber
       }, merge: true});
   }

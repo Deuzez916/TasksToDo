@@ -24,7 +24,7 @@ export default function Todorow(props, route) {
           ]}
         >
           {props.toDoInfo.isdone && (
-            <AntDesign name="checkcircleo" size={24} color="#000" />
+            <AntDesign name="checkcircleo" size={24} color="#000"/>
           )}
         </View>
       </TouchableOpacity>
