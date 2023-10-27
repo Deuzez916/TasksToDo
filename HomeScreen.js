@@ -12,79 +12,98 @@ import {
 import Todorow from "./Todorow";
 import RNCheckboxCard from "react-native-checkbox-card";
 import * as Haptics from "expo-haptics";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function HomeScreen({ navigation, route}) {
+export default function HomeScreen({ navigation, route }) {
+  const [addToDoItems, setAddToDoItems] = useState("");
 
-    const [addToDoItems, setAddToDoItems] = useState("");
+  const [toDoItems, setToDoItems] = useState([
+    {
+      Task: "Go Shopping",
+      isdone: false,
+      Deadline: "3 Nov 2023",
+      Notes: "Buy Groceries",
+    },
+    {
+      Task: "Send Packages",
+      isdone: false,
+      Deadline: "15 Dec 2023",
+      Notes: "Get package from Ica, and send package on Willys",
+    },
+    {
+      Task: "Create an app",
+      isdone: false,
+      Deadline: "4 Jan 2024",
+      Notes: "Make the app functional",
+    },
+  ]);
 
-    
-    const [toDoItems, setToDoItems] = useState([
-        {
-            Task: "Go Shopping",
-            isdone: true, 
-            Deadline: "3 Nov 2023",
-            Notes: "Buy Groceries"
-        },
-        { Task: "Send Packages", isdone: false, Deadline: "15 Dec 2023"},
-        { Task: "Print Todays Results", isdone: false, Deadline: "4 Jan 2024"},
-    ]);
+  useEffect(() => {
 
-    useEffect(() => {
-        console.log(route.params);
+    if (route.params?.renameTask) {
+      console.log("DO rename");
+        const renameTask = route.params.renameTask;
+        const rowNumber = route.params.rowNumber;
 
-        if (route.params?.taskName) {
-            const newList = [...toDoItems];
-            newList[route.params.rowNumber].Task = route.params.taskName;
-            setToDoItems(newList);
-        }
+        const updatedTask = [...toDoItems];
 
-        if (route.params?.deleteRow) {
-            console.log("Lets Delete");
-            console.log(route.params.deleteRow);
+        updatedTask[rowNumber] = renameTask
 
-            setAddToDoItems("");
-        }
-
-        if (route.params?.newTask) {
-            const newToDo = route.params.newTask;
-
-            const newTaskList = [...toDoItems].concat(newToDo)
-
-            setToDoItems(newTaskList);
-            setAddToDoItems("");
-        }
-
-        /*
-        saveTasks([...toDoItems]);
-        loadTasks();
-        */
-    }, [route.params?.taskName, route.params?.deleteRow, route.params?.newTask, route.params?.deadline]);
-
-    function toDoChangeDone(rowNumber) {
-        const newList = [...toDoItems];
-
-        if (newList[rowNumber].isdone == true) {
-            newList[rowNumber].isdone = false;
-        } else {
-            newList[rowNumber].isdone = true;
-        }
-        setAddToDoItems(newList);
+      setToDoItems(updatedTask);
     }
 
-    function toDoDelete(rowNumber) {
-        const newListStart = [...toDoItems].slice(0, rowNumber);
-        const newListEnd = [...toDoItems].slice(rowNumber + 1);
+    if (route.params?.deleteRow) {
+      console.log("Lets Delete");
+      console.log(route.params.deleteRow);
 
-        console.log(newListStart);
-        console.log(newListEnd);
+      setAddToDoItems("");
+    }
 
-        const newList = newListStart.concat(newListEnd);
+    if (route.params?.newTask) {
+        console.log("DO create");
+      const newToDo = route.params.newTask;
 
-        setToDoItems(newList);
+      const newTaskList = [...toDoItems].concat(newToDo);
+
+      setToDoItems(newTaskList);
+      setAddToDoItems("");
     }
 
     /*
+        saveTasks([...toDoItems]);
+        loadTasks();
+        */
+  }, [
+    route.params?.renameTask,
+    route.params?.deleteRow,
+    route.params?.newTask,
+    route.params?.deadline,
+  ]);
+
+  function toDoChangeDone(rowNumber) {
+    const newList = [...toDoItems];
+
+    if (newList[rowNumber].isdone == true) {
+      newList[rowNumber].isdone = false;
+    } else {
+      newList[rowNumber].isdone = true;
+    }
+    setAddToDoItems(newList);
+  }
+
+  function toDoDelete(rowNumber) {
+    const newListStart = [...toDoItems].slice(0, rowNumber);
+    const newListEnd = [...toDoItems].slice(rowNumber + 1);
+
+    console.log(newListStart);
+    console.log(newListEnd);
+
+    const newList = newListStart.concat(newListEnd);
+
+    setToDoItems(newList);
+  }
+
+  /*
     const saveTasks = async (tasks) => {
         try {
             await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
@@ -105,48 +124,60 @@ export default function HomeScreen({ navigation, route}) {
     };
     */
 
-    return (
-        <View style={styles.container}>
-            {toDoItems.length === 0 ? (
-                <Text style={{fontSize: 20, color: '#fff', fontWeight: 'bold', textAlign: 'center', width: '60%', marginTop: '20%'}}>You Have No More Tasks, Create A New Task On The Plus Icon</Text>
-            ) : (
-            <FlatList style={{width: '90%'}}
-                data={toDoItems}
-                horizontal={false}
-                renderItem={({ item, index }) => (
-                    <TouchableOpacity
-                        style={{ margin: 15}}
-                        onPress={() => {
-                            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-                            navigation.navigate("TaskPage", {
-                                toDoItems: item,
-                                rowNumber: index,
-                                toDoDelete: toDoDelete,
-                            });
-                        }}
-                    >
-                        <Todorow
-                            toDoInfo={item}
-                            toDoChangeDone={() => {
-                                toDoChangeDone(index);
-                            }}
-                            toDoDelete={() => {
-                                toDoDelete(index);
-                            }}
-                        />
-                    </TouchableOpacity>
-                )}
-            />
-            )}
-            <StatusBar style="auto" />
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      {toDoItems.length === 0 ? (
+        <Text
+          style={{
+            fontSize: 20,
+            color: "#fff",
+            fontWeight: "bold",
+            textAlign: "center",
+            width: "60%",
+            marginTop: "20%",
+          }}
+        >
+          You Have No More Tasks, Create A New Task On The Plus Icon
+        </Text>
+      ) : (
+        <FlatList
+          style={{ width: "90%" }}
+          data={toDoItems}
+          horizontal={false}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity
+              style={{ margin: 15 }}
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                navigation.navigate("TaskPage", {
+                  toDoItems: item,
+                  rowNumber: index,
+                  toDoDelete: toDoDelete,
+                });
+              }}
+            >
+              <Todorow
+                toDoInfo={item}
+                toDoChangeDone={() => {
+                  toDoChangeDone(index);
+                }}
+                toDoDelete={() => {
+                  toDoDelete(index);
+                }}
+              />
+            </TouchableOpacity>
+          )}
+        />
+      )}
+      <StatusBar style="auto" />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#01605a",
-        alignItems: 'center',
-    },
+  container: {
+    flex: 1,
+    backgroundColor: "#01605a",
+    alignItems: "center",
+  },
 });
