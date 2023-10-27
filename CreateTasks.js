@@ -44,6 +44,7 @@ export default function CreateTasks({ navigation, route }) {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
       <View style={styles.card}>
         <View style={styles.inputContainer}>
@@ -84,6 +85,7 @@ export default function CreateTasks({ navigation, route }) {
         </View>
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
 

@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
+  Alert,
   Button,
   FlatList,
   Keyboard,
@@ -88,10 +89,22 @@ export default function TaskPage({ navigation, route, props }) {
                 size={40}
                 color="#f00"
                 onPress={() => {
-                  Haptics.notificationAsync(
-                    Haptics.NotificationFeedbackType.Success
-                  );
-                  deleteTask();
+                  Alert.alert(
+                    'Delete',
+                    'Do you want to delete this Task?',
+                    [
+                      {
+                        text: 'Cancel',
+                        Haptics: Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success),
+                        style: 'cancel'
+                      },
+                      {
+                        text: 'Delete',
+                        onPress: () => deleteTask(),
+                        style: 'default'
+                      }
+                    ]
+                  )
                 }}
               />
               <Text style={{ textAlign: "center", fontWeight: "bold" }}>
