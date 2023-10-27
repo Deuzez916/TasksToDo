@@ -79,7 +79,7 @@ export default function HomeScreen({ navigation, route }) {
         }
         
         loadTasks();
-        
+
   }, [
     route.params?.renameTask,
     route.params?.deleteRow,
@@ -122,7 +122,7 @@ export default function HomeScreen({ navigation, route }) {
             marginTop: "20%",
           }}
         >
-          You Have No More Tasks, Create A New Task On The Plus Icon
+          No Tasks Active, Begin By Pressing "+"
         </Text>
       ) : (
         <FlatList
