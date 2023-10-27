@@ -4,7 +4,7 @@
     "slug": "TasksToDo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/TasksToDoLogo.png",
+    "icon": "./assets/TasksToDo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/TasksToDoLogo.png",
@@ -17,7 +17,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.deuzez916.TasksToDo",
-      "buildNumber": "3"
+      "buildNumber": "5"
     },
     "android": {
       "adaptiveIcon": {

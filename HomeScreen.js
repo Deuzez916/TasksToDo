@@ -19,27 +19,33 @@ export default function HomeScreen({ navigation, route }) {
 
   const [toDoItems, setToDoItems] = useState([
     {
-      Task: "Go Shopping",
+      Task: "Press the plus to create your first Task",
       isdone: false,
       Deadline: "3 Nov 2023",
-      Notes: "Buy Groceries",
-    },
-    {
-      Task: "Send Packages",
-      isdone: false,
-      Deadline: "15 Dec 2023",
-      Notes: "Get package from Ica, and send package on Willys",
-    },
-    {
-      Task: "Create an app",
-      isdone: false,
-      Deadline: "4 Jan 2024",
-      Notes: "Make the app functional",
+      Notes: "Delete Me",
     },
   ]);
 
-  useEffect(() => {
+    const saveTasks = async (tasks) => {
+        try {
+            await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+        } catch (error) {
+            console.log('Error saving tasks: ', error);
+        }
+    };
+    
+    const loadTasks = async () => {
+        try {
+            const savedTasks = await AsyncStorage.getItem('tasks');
+            if (savedTasks) {
+                setToDoItems(JSON.parse(savedTasks));
+            }
+        } catch (error) {
+            console.log('Error loading tasks: ', error);
+        }
+    };
 
+    useEffect(() => {
       
       if (route.params?.deleteRow) {
           console.log("Lets Delete");
@@ -55,6 +61,7 @@ export default function HomeScreen({ navigation, route }) {
             const newTaskList = [...toDoItems].concat(newToDo);
             
             setToDoItems(newTaskList);
+            saveTasks(newTaskList);
             setAddToDoItems("");
         }
         
@@ -68,11 +75,11 @@ export default function HomeScreen({ navigation, route }) {
             updatedTask[rowNumber] = renameTask
     
           setToDoItems(updatedTask);
+          saveTasks(updatedTask);
         }
-    /*
-        saveTasks([...toDoItems]);
+        
         loadTasks();
-        */
+        
   }, [
     route.params?.renameTask,
     route.params?.deleteRow,
@@ -101,27 +108,6 @@ export default function HomeScreen({ navigation, route }) {
 
     setToDoItems(newList);
   }
-
-  /*
-    const saveTasks = async (tasks) => {
-        try {
-            await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
-        } catch (error) {
-            console.log('Error saving tasks: ', error);
-        }
-    };
-    
-    const loadTasks = async () => {
-        try {
-            const savedTasks = await AsyncStorage.getItem('tasks');
-            if (savedTasks) {
-                setToDoItems(JSON.parse(savedTasks));
-            }
-        } catch (error) {
-            console.log('Error loading tasks: ', error);
-        }
-    };
-    */
 
   return (
     <View style={styles.container}>
