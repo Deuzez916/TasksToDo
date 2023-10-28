@@ -4,7 +4,7 @@
     "slug": "TasksToDo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Logo.png",
+    "icon": "./assets/Logo1.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/SplashLogo2.png",
@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.deuzez916.TasksToDo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
