@@ -4,10 +4,10 @@
     "slug": "TasksToDo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/TasksToDo.png",
+    "icon": "./assets/Logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/TasksToDoLogo.png",
+      "image": "./assets/SplashLogo2.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
