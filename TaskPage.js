@@ -18,6 +18,8 @@ import { Entypo } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import { MaterialIcons } from "@expo/vector-icons";
 import HomeScreen from "./HomeScreen";
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function TaskPage({ navigation, route, props }) {
   const [taskTitle, setTaskTitle] = useState(route.params.toDoItems.Task);
@@ -33,25 +35,21 @@ export default function TaskPage({ navigation, route, props }) {
   };
 
   const saveTask = () => {
-    console.log("ReName");
-    /*
-      navigation.navigate({
-        name: "HomeScreen",
-        params: { rename: taskTitle, rownumb: route.params.rownumb },
-        merge: true
-      });
-      */
-
+    if (taskTitle != "") {
       const renamedTask = {
         Task: taskTitle,
         Notes: todoNotes,
       };
-
-      navigation.navigate({name: "HomeScreen", params: {
-        renameTask: renamedTask,
-        rowNumber: route.params.rowNumber
-      }, merge: true});
-  }
+      navigation.navigate({
+        name: "HomeScreen",
+        params: {
+          renameTask: renamedTask,
+          rowNumber: route.params.rowNumber,
+        },
+        merge: true,
+      });
+    } else (Alert.alert("Title Required"))
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -60,6 +58,8 @@ export default function TaskPage({ navigation, route, props }) {
           <View style={styles.inputContainer}>
             <TextInput
               style={styles.input}
+              placeholder="Title"
+              placeholderTextColor={'#608da2'}
               value={taskTitle}
               onChangeText={setTaskTitle}
             />
@@ -69,6 +69,7 @@ export default function TaskPage({ navigation, route, props }) {
             <TextInput
               style={styles.NotesInput}
               placeholder="Notes"
+              placeholderTextColor={'#608da2'}
               multiline={true}
               value={todoNotes}
               onChangeText={setTodoNotes}
@@ -83,39 +84,42 @@ export default function TaskPage({ navigation, route, props }) {
             }}
           >
             <View style={{ flexDirection: "column" }}>
-              <AntDesign
-                style={{ alignSelf: "center" }}
-                name="delete"
+              <MaterialCommunityIcons
+                name="delete-circle"
                 size={40}
-                color="#f00"
+                color="#d9381d"
                 onPress={() => {
-                  Alert.alert(
-                    'Delete',
-                    'Do you want to delete this Task?',
-                    [
-                      {
-                        text: 'Cancel',
-                        Haptics: Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success),
-                        style: 'cancel'
-                      },
-                      {
-                        text: 'Delete',
-                        onPress: () => deleteTask(),
-                        style: 'default'
-                      }
-                    ]
-                  )
+                  Alert.alert("Delete", "Do you want to delete this Task?", [
+                    {
+                      text: "Cancel",
+                      Haptics: Haptics.notificationAsync(
+                        Haptics.NotificationFeedbackType.Success
+                      ),
+                      style: "cancel",
+                    },
+                    {
+                      text: "Delete",
+                      onPress: () => deleteTask(),
+                      style: "default",
+                    },
+                  ]);
                 }}
               />
-              <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  color: "#000",
+                }}
+              >
                 Delete
               </Text>
             </View>
             <View style={{ flexDirection: "column" }}>
-              <Entypo
-                name="save"
+              <Ionicons
+                name="ios-checkmark-circle"
                 size={40}
-                color="#01606a"
+                color="#aef359"
                 onPress={() => {
                   Haptics.notificationAsync(
                     Haptics.NotificationFeedbackType.Success
@@ -123,7 +127,13 @@ export default function TaskPage({ navigation, route, props }) {
                   saveTask();
                 }}
               />
-              <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  color: "#000",
+                }}
+              >
                 Save
               </Text>
             </View>
@@ -137,26 +147,26 @@ export default function TaskPage({ navigation, route, props }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#01605a",
+    backgroundColor: "#2c7da0",
     alignItems: "center",
   },
   card: {
-    backgroundColor: "#a98f76",
+    backgroundColor: "#fff",
     width: "85%",
-    maxHeight: '80%',
+    maxHeight: "80%",
     borderRadius: 15,
-    borderWidth: 2,
-    borderColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#000",
     padding: 20,
-    marginTop: 30,
+    marginTop: 60,
   },
   inputContainer: {
-    maxHeight: '65%',
+    maxHeight: "65%",
     width: "100%",
-    backgroundColor: "#ffd0a8",
-    borderRadius: 15,
-    borderWidth: 2,
-    borderColor: "#fff",
+    backgroundColor: "#98cff0",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#000",
     padding: "4%",
     marginBottom: "5%",
     textAlign: "center",
@@ -166,11 +176,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     textAlign: "center",
     fontWeight: "bold",
-    textAlignVertical: 'bottom'
+    textAlignVertical: "bottom",
   },
   NotesInput: {
     fontSize: 18,
-    maxHeight: '100%',
+    maxHeight: "100%",
     fontWeight: "bold",
     width: "100%",
     textAlignVertical: "bottom",

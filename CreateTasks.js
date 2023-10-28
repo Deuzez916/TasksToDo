@@ -15,6 +15,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
+import { Alert } from "react-native";
 
 export default function CreateTasks({ navigation, route }) {
   const [date, setDate] = useState(new Date());
@@ -28,19 +29,16 @@ export default function CreateTasks({ navigation, route }) {
   const [todoNotes, setTodoNotes] = useState("");
 
   const addTaskToHomeScreen = () => {
-    const newTask = {
-      Task: todoTitle,
-      Deadline: deadline,
-      Notes: todoNotes,
-    };
-    /*
-    navigation.navigate("HomeScreen", {
-      newTask: newTask,
-    });
-    */
-    navigation.navigate({name: "HomeScreen", params: {
-      newTask: newTask
-    }, merge: true});
+    if (todoTitle != "") {
+      const newTask = {
+        Task: todoTitle,
+        Deadline: deadline,
+        Notes: todoNotes,
+      };
+      navigation.navigate({name: "HomeScreen", params: {
+        newTask: newTask
+      }, merge: true});
+    } else (Alert.alert("Title Required"))
   };
 
   return (
@@ -50,7 +48,8 @@ export default function CreateTasks({ navigation, route }) {
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
-            placeholder="Enter Task Name"
+            placeholder="Title"
+            placeholderTextColor={'#608da2'}
             value={todoTitle}
             onChangeText={setTodoTitle}
           />
@@ -60,6 +59,7 @@ export default function CreateTasks({ navigation, route }) {
           <TextInput
             style={styles.NotesInput}
             placeholder="Notes"
+            placeholderTextColor={'#608da2'}
             multiline={true}
             value={todoNotes}
             onChangeText={setTodoNotes}
@@ -92,26 +92,26 @@ export default function CreateTasks({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#10605a",
+    backgroundColor: "#2c7da0",
     alignItems: "center",
     justifyContent: "flex-start",
   },
   card: {
-    backgroundColor: "#a98f76",
+    backgroundColor: "#fff",
     width: "85%",
     borderRadius: 15,
-    borderWidth: 2,
-    borderColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#000",
     padding: 20,
-    marginTop: 30,
+    marginTop: 60,
   },
   inputContainer: {
     maxHeight: '65%',
     width: "100%",
-    backgroundColor: "#ffd0a8",
+    backgroundColor: "#98cff0",
     borderRadius: 15,
-    borderWidth: 2,
-    borderColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#000",
     padding: "4%",
     marginBottom: "5%",
     textAlign: "center",

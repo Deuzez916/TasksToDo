@@ -13,6 +13,7 @@ import {
 import RNCheckboxCard from "react-native-checkbox-card";
 import { AntDesign } from "@expo/vector-icons";
 
+
 export default function Todorow(props, route) {
   return (
     <View style={rowstyles.todorow}>
@@ -24,7 +25,7 @@ export default function Todorow(props, route) {
           ]}
         >
           {props.toDoInfo.isdone && (
-            <AntDesign name="checkcircleo" size={24} color="#000"/>
+            <AntDesign name="checkcircleo" size={35} color="#000"/>
           )}
         </View>
       </TouchableOpacity>
@@ -46,27 +47,29 @@ export default function Todorow(props, route) {
 const rowstyles = StyleSheet.create({
   todorow: {
     flex: 1,
-    backgroundColor: "#ffd0a8",
+    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
-    borderRadius: 15,
-    borderWidth: 2,
-    borderColor: "#fff",
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#000",
   },
   checkbox: {
     backgroundColor: "#fff",
-    width: 25,
-    height: 25,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "Black",
+    width: 35,
+    height: 35,
+    borderRadius: 25,
+    borderWidth: 2,
+    borderColor: "#000",
     justifyContent: "center",
     alignItems: "center",
     marginLeft: 15,
     marginRight: 15,
   },
   taskText: {
+    marginTop: '3%',
+    marginBottom: '3%',
     fontSize: 22,
     color: "#000",
     fontWeight: "bold",
@@ -76,7 +79,8 @@ const rowstyles = StyleSheet.create({
     textDecorationLine: "line-through",
   },
   checked: {
-    backgroundColor: "#01505a",
+    backgroundColor: "#aef359",
+    borderWidth: 0,
   },
   estimatedDeadline: {
     flexDirection: "column",
