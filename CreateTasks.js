@@ -106,13 +106,15 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   inputContainer: {
+    maxHeight: '65%',
     width: "100%",
     backgroundColor: "#ffd0a8",
     borderRadius: 15,
     borderWidth: 2,
     borderColor: "#fff",
-    padding: 10,
-    marginBottom: 10,
+    padding: "4%",
+    marginBottom: "5%",
+    textAlign: "center",
   },
   label: {
     fontSize: 20,
@@ -126,8 +128,8 @@ const styles = StyleSheet.create({
   },
   NotesInput: {
     fontSize: 18,
+    maxHeight: '100%',
     fontWeight: "bold",
-    height: "30%",
     width: "100%",
     textAlignVertical: "bottom",
   },
